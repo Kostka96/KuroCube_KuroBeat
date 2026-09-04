@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KuroBeat Auth</title>
+</head>
+<body style="background-color: #121212; color: #1DB954; font-family: sans-serif; text-align: center; margin-top: 20%;">
+  <h2>Возврат к KuroBeat...</h2>
+  <script>
+    // Проверяем, вернул ли Spotify параметр code
+    if (window.location.search.includes("code=")) {
+      // Перенаправляем на локальный IP ESP32
+      window.location.href = "http://192.168.4.1/callback" + window.location.search;
+    } else {
+      document.body.innerHTML = "<h2 style='color: #d32f2f;'>Ошибка: Код авторизации не найден. Закройте страницу.</h2>";
+    }
+  </script>
+</body>
+</html>
