@@ -8,12 +8,15 @@
 <body style="background-color: #121212; color: #1DB954; font-family: sans-serif; text-align: center; margin-top: 20%;">
   <h2>Возврат к KuroBeat...</h2>
   <script>
-    // Проверяем, вернул ли Spotify параметр code
-    if (window.location.search.includes("code=")) {
-      // Перенаправляем на локальный IP ESP32
-      window.location.href = "http://192.168.4.1/callback" + window.location.search;
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const state = urlParams.get('state'); // Здесь лежит IP-адрес ESP32
+
+    if (code && state) {
+      // Динамически подставляем IP-адрес устройства
+      window.location.href = "http://" + state + "/callback?code=" + code;
     } else {
-      document.body.innerHTML = "<h2 style='color: #d32f2f;'>Ошибка: Код авторизации не найден. Закройте страницу.</h2>";
+      document.body.innerHTML = "<h2 style='color: #d32f2f;'>Ошибка: Код или IP не найден.</h2>";
     }
   </script>
 </body>
